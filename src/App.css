@@ -12,7 +12,44 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.Contaner {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  min-height: 100vh;
+  gap: 4rem;
+}
 
+.card {
+  margin: 2rem;
+  width: 25rem;
+  border: 0;
+  color: #323232;
+}
+footer{
+  text-align: center;
+  background-color: #323232;
+  color: whitesmoke;
+}
+.section {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  background: #323232;
+  padding: 5rem;
+  min-width: 70rem;
+  min-height: 50rem;
+  max-width: 100%;
+  max-height: 98%;
+  margin-top: 1rem;
+  border-radius: 0.25rem;
+  color: white;
+}
+.gap {
+  height: 2rem;
+  width: 100%;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
