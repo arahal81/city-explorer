@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import  Weather  from './Weather';
 import  FormS  from './FormS';
+import Movies from './Movies';
 class Main extends React.Component {
 
   constructor(props) {
@@ -14,9 +15,13 @@ class Main extends React.Component {
       errMsg: 'Please make sure you enter the city name correctly',
       map: false,
       weatherData: [] ,
+      movieData:'',
       showWeather:false,
       City_Name:'',
-      weatherAlert:false
+      weatherAlert:false,
+      showMovie:false,
+      movieAlert:false
+
     };
   }
 
@@ -38,12 +43,19 @@ class Main extends React.Component {
 
       });
     
-      this.searchWeather(C_Name);
+      await this.searchWeather(C_Name);
+      await this.searchMovie(C_Name);
     } catch (error) {
+      
       this.setState({
         show: true,
-        map: false
-
+        map: false,
+        showMovie:false ,
+        movieData:'',
+        movieAlert:true,
+        showWeather:false ,
+        weatherData:'',
+        weatherAlert:true
       });
     }
   }
@@ -51,7 +63,7 @@ class Main extends React.Component {
   searchWeather = async (City_Name) => {
     try {
     const myApi = await axios.get(`${process.env.REACT_APP_LOCATION_MY_API}/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}&S_Q=${City_Name}`);
-    console.log(myApi);
+   
     this.setState({
       weatherData: myApi.data,
       showWeather:true ,
@@ -67,6 +79,26 @@ class Main extends React.Component {
 
     });
   }
+}
+searchMovie = async (City_Name) => {
+  try {
+  const myApi = await axios.get(`${process.env.REACT_APP_LOCATION_MY_API}/movie?S_Q=${City_Name}`);
+ console.log(myApi);
+  this.setState({
+    movieData: myApi.data,
+    showMovie:true ,
+    movieAlert:false
+  });
+
+} catch (error) {
+
+  this.setState({
+    showMovie:false ,
+    movieData:'',
+    movieAlert:true
+
+  });
+}
 }
   updateCityName = async (event) => {
     event.preventDefault();
@@ -113,6 +145,15 @@ class Main extends React.Component {
  
         {this.state.showWeather &&
       <Weather weatherInfo={this.state.weatherData}/>}
+
+        {this.state.movieAlert &&
+            <div class="alert alert-danger" role="alert">
+              <strong>EError!</strong> ther is no movies releated with this city.
+            </div>
+
+        }
+       {this.state.showMovie &&
+      <Movies movieData={this.state.movieData}/>}
          </div>
         </main>
     )

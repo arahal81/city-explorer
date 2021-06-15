@@ -22,4 +22,4 @@ class FormS extends Component {
     )
   }
 }
-export default FormS
+export default FormS;
