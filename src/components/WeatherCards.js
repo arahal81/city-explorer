@@ -20,4 +20,4 @@ export class WeatherCards extends React.Component {
         )
     }
 }
-export default WeatherCards
+export default WeatherCards;
