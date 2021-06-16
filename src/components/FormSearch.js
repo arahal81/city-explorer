@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Form, Col, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-class FormS extends Component {
+class FormSearch extends Component {
   render() {
     return (
       <>
@@ -25,4 +25,4 @@ class FormS extends Component {
     )
   }
 }
-export default FormS;
+export default FormSearch;
