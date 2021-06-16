@@ -26,10 +26,10 @@ class Main extends React.Component {
   }
 
   getCity = async (event) => {
-
+    event.preventDefault();
     try {
       let C_Name = event.target.City_Name.value
-      event.preventDefault();
+      
     
       const url = `${process.env.REACT_APP_LOCATION_IQ_URL}?key=${process.env.REACT_APP_LOCATION_IQ_KEY}&q=${C_Name}&format=json`;
       const req = await axios.get(url);
@@ -43,26 +43,19 @@ class Main extends React.Component {
 
       });
     
-      await this.searchWeather(C_Name);
-      await this.searchMovie(C_Name);
     } catch (error) {
       
       this.setState({
         show: true,
         map: false,
-        showMovie:false ,
-        movieData:'',
-        movieAlert:true,
-        showWeather:false ,
-        weatherData:'',
-        weatherAlert:true
       });
     }
   }
 
-  searchWeather = async (City_Name) => {
+  searchWeather = async (event) => {
+    event.preventDefault();
     try {
-    const myApi = await axios.get(`${process.env.REACT_APP_LOCATION_MY_API}/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}&S_Q=${City_Name}`);
+    const myApi = await axios.get(`${process.env.REACT_APP_LOCATION_MY_API}/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}&S_Q=${event.target.City_Name.value}`);
    
     this.setState({
       weatherData: myApi.data,
@@ -80,9 +73,10 @@ class Main extends React.Component {
     });
   }
 }
-searchMovie = async (City_Name) => {
+searchMovie = async (event) => {
+  event.preventDefault();
   try {
-  const myApi = await axios.get(`${process.env.REACT_APP_LOCATION_MY_API}/movie?S_Q=${City_Name}`);
+  const myApi = await axios.get(`${process.env.REACT_APP_LOCATION_MY_API}/movie?S_Q=${event.target.City_Name.value}`);
  console.log(myApi);
   this.setState({
     movieData: myApi.data,
@@ -113,7 +107,7 @@ searchMovie = async (City_Name) => {
      
     
         <h1>City Explorer</h1>
-        <FormS getCity={this.getCity} />
+        <FormS getCity={this.getCity} searchMovie={this.searchMovie}searchWeather={this.searchWeather}/>
         {this.state.map &&
         <div>
         <p>
