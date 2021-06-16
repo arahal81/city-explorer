@@ -2,7 +2,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col } from 'react-bootstrap/';
-import WeatherCards from './WeatherCards';
+import WeatherDay from './WeatherDay';
 export class Weather extends React.Component {
     render() {
         return (
@@ -13,7 +13,7 @@ export class Weather extends React.Component {
                         <Row className="justify-content-md-center">
                         {this.props.weatherInfo.map((data,i) => (
                             <Col md="auto">
-                            <WeatherCards
+                            <WeatherDay
                               key={i}
                               date={data.date}
                               description={data.description}

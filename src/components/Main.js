@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import  Weather  from './Weather';
-import  FormS  from './FormS';
+import  FormSearch  from './FormSearch';
 import Movies from './Movies';
+import LocationIQ from './LocationIQ';
 class Main extends React.Component {
 
   constructor(props) {
@@ -104,39 +105,17 @@ searchMovie = async (event) => {
     return (
       <main className='Contaner'>
       <div className="section">
-     
-    
         <h1>City Explorer</h1>
-        <FormS getCity={this.getCity} searchMovie={this.searchMovie}searchWeather={this.searchWeather}/>
-        {this.state.map &&
-        <div>
-        <p>
-          {this.state.data.display_name}
-        </p>
-        <br />
-        <p>
-          {this.state.data.lat},{this.state.data.lon}
-        </p>
-        </div>
-        }
+        <FormSearch getCity={this.getCity} searchMovie={this.searchMovie}searchWeather={this.searchWeather}/>
 
-        {this.state.show &&
-            <div class="alert alert-danger" role="alert">
-              <strong>EError!</strong> {this.state.errMsg}.
-            </div>
+        <LocationIQ  map={this.state.map} 
+        show={this.state.show}
+        display_name={this.state.data.display_name}
+         lat={this.state.data.lat}
+         lon={this.state.data.lon}
+         weatherAlert={this.state.weatherAlert}
+         errMsg={this.state.errMsg}/>
 
-        }
-        <br />
-        {this.state.map &&
-          <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_IQ_KEY}&center=${this.state.data.lat},${this.state.data.lon}&zoom=13`} alt='' />
-        }<div className="gap"></div>
-                {this.state.weatherAlert &&
-            <div class="alert alert-danger" role="alert">
-              <strong>EError!</strong> ther is no weather inof for this city.
-            </div>
-
-        }
- 
         {this.state.showWeather &&
       <Weather weatherInfo={this.state.weatherData}/>}
 
