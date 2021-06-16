@@ -7,7 +7,10 @@ class FormS extends Component {
     return (
       <>
         <div className="gap"></div>
-        <Form onSubmit={this.props.getCity}>
+        <Form onSubmit={(e) => {
+          this.props.getCity(e);
+          this.props.searchMovie(e);
+          this.props.searchWeather(e);}} >
           <Form.Row className="align-items-center">
             <Col xs="auto">
               <Form.Control className="mb-2" placeholder="Enter City Name" name='City_Name'/>
